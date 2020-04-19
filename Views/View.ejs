@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <style id='editable-css' type='text/css'>
+            <% if(CSS && CSS !== ''){ %>
+                <%= CSS %>
+            <% } else { %>
+                /* Reset CSS */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p,
+a, img, b, u, i, center, ol, ul, li, form, label,
+table, tbody, tfoot, thead, tr, th, td, article,
+footer, header, hgroup, menu, nav, section{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -o-transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -ms-transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -moz-transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -webkit-transition:500ms cubic-bezier(.4, 0, .2, 1);
+}
+html{	font-size:16px;	}
+
+body{
+    font-family:Titillium Web, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    max-width:100vw;
+    overflow-x:hidden;
+}
+            <% } %>
+        </style>
+    </head>
+    <body id='editable-html'>
+        <% if(HTML && HTML !== ''){ %>
+            <%= HTML %>
+        <% } else { %>
+            <h1>Hello World.</h1>
+        <% } %>
+    </body>
+</html>

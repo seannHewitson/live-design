@@ -1,0 +1,50 @@
+<%- layout('Layout') -%>
+<iframe id='live-view' src='/Live-View'></iframe>
+
+<div class='editor-panel' id='CSS-Panel'>
+    <div class='editor-titlebar'>
+        <span class='window-title'>CSS Editor</span>
+        <ul class='buttons'>
+            <li title='Close'>&nbsp;</li>
+            <li title='Minimise'>&nbsp;</li>
+            <li title='Maximise'>&nbsp;</li>
+        </ul>
+    </div>
+    <pre id='css-Editor'>/* Reset CSS */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p,
+a, img, b, u, i, center, ol, ul, li, form, label,
+table, tbody, tfoot, thead, tr, th, td, article,
+footer, header, hgroup, menu, nav, section{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -o-transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -ms-transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -moz-transition:500ms cubic-bezier(.4, 0, .2, 1);
+    -webkit-transition:500ms cubic-bezier(.4, 0, .2, 1);
+}
+html{	font-size:16px;	}
+
+body{
+    font-family:Titillium Web, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    max-width:100vw;
+    overflow-x:hidden;
+}
+    </pre>
+</div>
+
+<div class='editor-panel selected-panel' id='HTML-Panel'>
+    <div class='editor-titlebar'>
+        <span class='window-title'>HTML Editor</span>
+        <ul class='buttons'>
+            <li title='Close'>&nbsp;</li>
+            <li title='Minimise'>&nbsp;</li>
+            <li title='Maximise'>&nbsp;</li>
+        </ul>
+    </div>
+    <pre id='html-Editor'>&lt;h1&gt;Hello World.&lt;/h1&gt;
+    </pre>
+</div>
