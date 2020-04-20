@@ -28,7 +28,7 @@ body{
 
 nav{
     position:fixed;
-    display:none;
+    display:block;
     top:0;
     left:0;
     width:100%;
@@ -43,12 +43,12 @@ nav{
 
 iframe{
     position:fixed;
-    /* top:2.5rem; */
-    top:0;
+    top:2.5rem;
+    /* top:0; */
     left:0;
     width:100%;
-    /* height:calc(100% - 2.5rem); */
-    height:100%;
+    height:calc(100% - 2.5rem);
+    /* height:100%; */
 }
 
 .editor-panel{
@@ -150,4 +150,15 @@ iframe{
     margin:0;
     width:100%;
     height:calc(100% - 1.7rem);
+}
+
+.input > input{
+    border:0;
+    outline:0;
+    margin:0;
+    background:none;
+    color:white;
+    padding:0 10px;
+    font-size:1.125rem;
+    min-width:200px;
 }

@@ -80,6 +80,7 @@ app.use(require('cors')({
 }));
   
 app.use('/', require('../Routes')());
+app.use('/API', require('../Routes/API')());
 
 //  Error Handling
 app.use(function(req, res, next){   // 404 not found error
@@ -87,7 +88,7 @@ app.use(function(req, res, next){   // 404 not found error
     err.status = 404;
     next(err);
 });
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res, next){
     res.status(err.status || 500);
     res.render('error.ejs', {title: "Error", error: err});
 });

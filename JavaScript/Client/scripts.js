@@ -1,25 +1,61 @@
+var CSSEditor, HTMLEditor;
 document.addEventListener('DOMContentLoaded', function(){
     ace.require('ace/ext/language_tools');
     var iFrame = document.getElementById('live-view');
-    
-    // var css = CreateEditor('css');
-    // var html = CreateEditor('html');
 
     Array.from(document.getElementsByClassName('editor-panel')).forEach(function(editorPanel){
-        //  Top most when clicked.
+        var editorTimeout;
         draggable(editorPanel.querySelector('.editor-titlebar'));
         editorPanel.addEventListener('mousedown', selectEditor);
         var editorArea = editorPanel.querySelector('pre');
         var editor = CreateEditor(editorArea.id);
+        if(editorArea.id.replace('-Editor', '') == 'css')
+            CSSEditor = editor;
+        else if(editorArea.id.replace('-Editor', '') == 'html')
+            HTMLEditor = editor;
         editor.getSession().on('change', function(){
-            console.log(editor.getValue());
-            console.log(iFrame.contentDocument);
-
             var editable = iFrame.contentDocument.getElementById(`editable-${editorArea.id.replace('-Editor', '')}`);
             editable.innerHTML = editor.getValue();
+            if(editorTimeout) clearTimeout(editorTimeout);
+            editorTimeout = setTimeout(function(){
+                //  Create / Update Functionality
+                if(!projectIsCreated){
+                    CreateProject();
+                } else {
+                    //  Update
+                    postRequest(`/Update/${editorArea.id.replace('-Editor', '')}`, {
+                        value: editor.getValue()
+                    }, function(data){});
+                }
+            }, 2500);
         });
     });
+
+    //  Title Updating
+    var txtTitle = document.getElementById('txtTitle');
+    if(txtTitle){
+        txtTitle.onblur = function(){
+            if(txtTitle.value.trim() !== ''){
+                postRequest('/Update/Title', {
+                    value: txtTitle.value
+                }, function(data){
+                    if(data.success == 1)
+                        document.querySelector('title').innerText = `${txtTitle.value} | Live-Design`;
+                });
+            }
+        }
+    }
 });
+
+function CreateProject(){
+    postRequest('/Create', {
+        title: 'Untitled Project (Created)',
+        css: CSSEditor.getValue(),
+        html: HTMLEditor.getValue()
+    }, function(data){
+        projectIsCreated = data.success == 1;
+    });
+}
 
 function selectEditor(){
     document.querySelector('.selected-panel').classList.remove('selected-panel');
@@ -100,4 +136,18 @@ function draggable(element) {
         element.parentNode.style.left = `${StartingX + diffX}px`;
         element.parentNode.style.top = `${StartingY + diffY}px`;
     }
+}
+
+//  Post Request
+function postRequest(endpoint, data, callback){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function(){
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        callback(JSON.parse(xmlHttp.responseText));
+      else if(xmlHttp.readyState == 4 && xmlHttp.status === 404)
+        callback(false);
+    }
+    xmlHttp.open("POST", `/API/${endpoint}`, true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json');
+    xmlHttp.send(JSON.stringify(data));
 }

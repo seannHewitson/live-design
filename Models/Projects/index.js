@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let Snippets = new Schema({
+let Projects = new Schema({
     SessionID: {
         type: String
     },
@@ -18,7 +18,7 @@ let Snippets = new Schema({
         type: Date
     }
 }, {
-    collection: 'Snippets'
+    collection: 'Projects'
 });
 
-module.exports = mongoose.model('Snippet', Snippets);
+module.exports = mongoose.model('Project', Projects);
