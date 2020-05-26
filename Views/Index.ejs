@@ -1,8 +1,7 @@
 <%- layout('Layout') -%>
 <%- include Includes/Header %>
-<script>
-    var projectIsCreated = <%= isCreated %>;
-</script>
+<%- script %>
+
 <iframe id='live-view' src='/Live-View'></iframe>
 
 <div class='editor-panel' id='CSS-Panel'>
@@ -14,8 +13,9 @@
             <li title='Maximise'>&nbsp;</li>
         </ul>
     </div>
-    <pre id='css-Editor'><%= CSS %>
-</pre>
+    <pre id='css-Editor'><%= escape(CSS) %></pre>
+    <div class='corners top'> </div>
+    <div class='corners bottom'> </div>
 </div>
 
 <div class='editor-panel selected-panel' id='HTML-Panel'>
@@ -27,6 +27,21 @@
             <li title='Maximise'>&nbsp;</li>
         </ul>
     </div>
-    <pre id='html-Editor'><%= escape(HTML) %>
-</pre>
+    <pre id='html-Editor'><%= escape(HTML) %></pre>
+    <div class='corners top'> </div>
+    <div class='corners bottom'> </div>
+</div>
+
+<div class='editor-panel' id='JavaScript-Panel'>
+    <div class='editor-titlebar'>
+        <span class='window-title'>JavaScript Editor</span>
+        <ul class='buttons'>
+            <li title='Close'>&nbsp;</li>
+            <li title='Minimise'>&nbsp;</li>
+            <li title='Maximise'>&nbsp;</li>
+        </ul>
+    </div>
+    <pre id='javascript-Editor'><%= escape(JavaScript) %></pre>
+    <div class='corners top'> </div>
+    <div class='corners bottom'> </div>
 </div>

@@ -15,20 +15,26 @@ module.exports = function(){
             if(data){
                 req.session.CSS = data.CSS;
                 req.session.HTML = data.HTML;
+                req.session.JavaScript = data.JavaScript;
+                
                 return res.render('Index', {
                     title: data.Title,
                     CSS: req.session.CSS,
                     HTML: req.session.HTML,
-                    isCreated: true
+                    JavaScript: req.session.JavaScript,
+                    script: `<script>var projectIsCreated = true;</script>`
                 });
             }
             req.session.CSS = fs.readFileSync(path.resolve(global.root_path + '/Defaults/default.css'));
             req.session.HTML = fs.readFileSync(path.resolve(global.root_path + '/Defaults/default.html'));
+            req.session.JavaScript = fs.readFileSync(path.resolve(global.root_path + '/Defaults/default.js'));
+            
             res.render('Index', {
                 title: 'Untitled Project',
                 CSS:  req.session.CSS,
                 HTML:  req.session.HTML,
-                isCreated: false
+                JavaScript: req.session.JavaScript,
+                script: `<script>var projectIsCreated = false;</script>`
             }); 
         });
     });
@@ -36,7 +42,8 @@ module.exports = function(){
     router.get('/Live-View', function(req, res){
         res.render('View', {
             CSS: req.session.CSS,
-            HTML: req.session.HTML
+            HTML: req.session.HTML,
+            JavaScript: req.session.JavaScript
         });
     });
 

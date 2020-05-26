@@ -1,4 +1,4 @@
-var CSSEditor, HTMLEditor;
+var CSSEditor, HTMLEditor, JavaScriptEditor;
 document.addEventListener('DOMContentLoaded', function(){
     ace.require('ace/ext/language_tools');
     var iFrame = document.getElementById('live-view');
@@ -13,9 +13,17 @@ document.addEventListener('DOMContentLoaded', function(){
             CSSEditor = editor;
         else if(editorArea.id.replace('-Editor', '') == 'html')
             HTMLEditor = editor;
+        else if(editorArea.id.replace('-Editor', '') == 'javascript')
+            JavaScriptEditor = editor;
         editor.getSession().on('change', function(){
+            var editorType = editorArea.id.replace('-Editor', '');
+            console.log(editorType);
             var editable = iFrame.contentDocument.getElementById(`editable-${editorArea.id.replace('-Editor', '')}`);
-            editable.innerHTML = editor.getValue();
+            if(editorType === 'html'){
+                editable.innerHTML = `${editor.getValue()}\n\n<script id='editable-javascript' type='text/javascript'>${JavaScriptEditor.getValue()}</script>`;
+            } else {
+                editable.innerHTML = editor.getValue();
+            }
             if(editorTimeout) clearTimeout(editorTimeout);
             editorTimeout = setTimeout(function(){
                 //  Create / Update Functionality
@@ -51,7 +59,8 @@ function CreateProject(){
     postRequest('/Create', {
         title: 'Untitled Project (Created)',
         css: CSSEditor.getValue(),
-        html: HTMLEditor.getValue()
+        html: HTMLEditor.getValue(),
+        javascript: JavaScriptEditor.getValue(),
     }, function(data){
         projectIsCreated = data.success == 1;
     });

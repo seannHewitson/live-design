@@ -11,6 +11,9 @@ let Templates = new Schema({
     HTML: {
         type: String
     },
+    JavaScript: {
+        type: String
+    },
     DateCreated: {
         type: Date
     }

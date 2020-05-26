@@ -10,8 +10,6 @@ module.exports = function(){
     });
 
     router.post('/Create', function(req, res){
-        console.log(req);
-        console.log(req.body);
         Projects.findOne({
             SessionID: req.session.sessionID
         }, function(error, obj){
@@ -65,6 +63,26 @@ module.exports = function(){
                 }, function(err, result){
                     if(err) return res.json({success: 0, error: err});
                     res.json({success: 1, message: `Updated HTML for Project: ${obj.Title}`});
+                });
+            } else
+                res.json({success: 0, error: 'Could not find Project'});
+        });
+    });
+
+    router.post('/Update/JavaScript', function(req, res){
+        Projects.findOne({
+            SessionID: req.session.sessionID
+        }, function(error, obj){
+            if(error)   return res.json({success: 0, error: error});
+            if(obj){
+                //  Update
+                Projects.updateOne({
+                    _id: obj._id
+                }, {
+                    $set: { JavaScript: req.body.value }
+                }, function(err, result){
+                    if(err) return res.json({success: 0, error: err});
+                    res.json({success: 1, message: `Updated JavaScript for Project: ${obj.Title}`});
                 });
             } else
                 res.json({success: 0, error: 'Could not find Project'});

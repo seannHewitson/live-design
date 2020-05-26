@@ -14,6 +14,9 @@ let Snippets = new Schema({
     HTML: {
         type: String
     },
+    JavaScript: {
+        type: String
+    },
     DateCreated: {
         type: Date
     }

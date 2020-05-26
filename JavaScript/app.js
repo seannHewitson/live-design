@@ -31,6 +31,8 @@ global.port = 80 || process.env.port;
 app.use('/Ace', express.static(path.resolve(global.root_path + '/JavaScript/Ace')));
 app.use('/JavaScript', express.static(path.resolve(global.root_path + '/JavaScript/Client')));
 app.use('/CSS', express.static(path.resolve(global.root_path + '/CSS')));
+app.use('/Images', express.static(path.resolve(global.root_path + '/Images')));
+app.use('/Fonts', express.static(path.resolve(global.root_path + '/Fonts')));
 
 //  Favicon
 // app.use(favicon('favicon.ico'))

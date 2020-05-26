@@ -4,6 +4,7 @@
   "description": "Web Application for live designing the front end of Websites / Web Apps",
   "main": "JavaScript/app.js",
   "scripts": {
+	"start": "node JavaScript/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
